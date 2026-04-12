@@ -493,7 +493,8 @@ function renderGlyphs() {
       const ch = String.fromCodePoint(cp);
       const cell = document.createElement('div');
       cell.className = 'glyph-cell';
-      cell.innerHTML = `<span class="glyph-char" style="font-family:'${currentGlyphFont}',sans-serif">${cp === 0x20 ? '&blank;' : ch.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</span><span class="glyph-code">${cp.toString(16).toUpperCase().padStart(4, '0')}</span>`;
+      const safe = cp === 0x20 ? '\u2423' : ch.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      cell.innerHTML = `<span class="glyph-char" style="font-family:'${currentGlyphFont}',sans-serif">${safe}</span><span class="glyph-code">${cp.toString(16).toUpperCase().padStart(4, '0')}</span>`;
       cell.title = `U+${cp.toString(16).toUpperCase().padStart(4, '0')}`;
       grid.appendChild(cell);
     }
