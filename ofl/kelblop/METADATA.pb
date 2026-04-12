@@ -1,5 +1,5 @@
 name: "Kelblop"
-designer: "Keldor LLC"
+designer: "Rida Bargoute"
 license: "OFL"
 category: "DISPLAY"
 date_added: "2026-04-12"

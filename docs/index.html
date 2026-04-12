@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelfont — Kelblok & Kelblop</title>
+<style>
+@font-face {
+  font-family: 'Kelblok';
+  src: url('Kelblok-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kelblop';
+  src: url('Kelblop-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fafafa;
+  --surface: #fff;
+  --border: #e0e0e0;
+  --text: #202124;
+  --text-secondary: #5f6368;
+  --accent: #1a73e8;
+  --accent-hover: #1557b0;
+  --radius: 12px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+header h1 span { color: var(--text-secondary); font-weight: 400; }
+.header-links { display: flex; gap: 16px; }
+.header-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.header-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero {
+  padding: 80px 0 64px;
+  text-align: center;
+}
+.hero-title {
+  font-family: 'Kelblok', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.hero-subtitle {
+  font-family: 'Kelblop', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.2;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover { background: var(--accent-hover); }
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-outline:hover { background: rgba(26,115,232,0.06); }
+.btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Section */
+section { padding: 48px 0; }
+section + section { border-top: 1px solid var(--border); }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* Font card */
+.font-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+.font-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.font-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Type tester */
+.type-tester {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.type-tester-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.type-tester-controls label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.type-tester-controls select,
+.type-tester-controls input[type="range"] {
+  font-size: 13px;
+}
+.type-tester-controls select {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+}
+.type-tester-controls input[type="range"] {
+  width: 120px;
+  accent-color: var(--accent);
+}
+.size-display {
+  font-size: 13px;
+  color: var(--text-secondary);
+  min-width: 40px;
+  font-variant-numeric: tabular-nums;
+}
+.type-tester-input {
+  padding: 32px 24px;
+  min-height: 120px;
+}
+.type-tester-input [contenteditable] {
+  outline: none;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* Specimen sizes */
+.specimen-row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+}
+.specimen-row:last-child { border-bottom: none; }
+.specimen-size {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 40px;
+  font-variant-numeric: tabular-nums;
+}
+.specimen-text {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Glyph grid */
+.glyph-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 4px;
+}
+.glyph-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  cursor: default;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.glyph-cell:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(26,115,232,0.15);
+}
+.glyph-char {
+  font-size: 28px;
+  line-height: 1;
+}
+.glyph-code {
+  font-size: 9px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-family: monospace;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--border);
+}
+.tab {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+.tab:hover { color: var(--text); }
+.tab.active {
+  color: var(--accent);
+}
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* License */
+.license-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 32px;
+}
+.license-box h3 { font-size: 16px; margin-bottom: 8px; }
+.license-box p { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+.license-box a { color: var(--accent); }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+footer a { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Kelfont <span>by Rida Bargoute</span></h1>
+    <div class="header-links">
+      <a href="https://github.com/kellydornhaus/kelfont">GitHub</a>
+      <a href="https://github.com/kellydornhaus/kelfont/archive/refs/heads/main.zip">Download</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-title">Kelblok</div>
+    <div class="hero-subtitle">Kelblop</div>
+    <p class="hero-desc">
+      Two bold, geometric display typefaces. Blocky and rounded companions
+      for headlines, game interfaces, and playful branding.
+    </p>
+    <div class="btn-group">
+      <a class="btn" href="https://github.com/kellydornhaus/kelfont/archive/refs/heads/main.zip">Download fonts</a>
+      <a class="btn btn-outline" href="https://github.com/kellydornhaus/kelfont">View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- Type Tester -->
+  <section>
+    <div class="section-label">Type Tester</div>
+    <div class="type-tester">
+      <div class="type-tester-controls">
+        <label>Font</label>
+        <select id="tester-font">
+          <option value="Kelblok">Kelblok</option>
+          <option value="Kelblop">Kelblop</option>
+        </select>
+        <label>Size</label>
+        <input type="range" id="tester-size" min="12" max="120" value="48">
+        <span class="size-display" id="tester-size-display">48px</span>
+      </div>
+      <div class="type-tester-input">
+        <div contenteditable="true" id="tester-text" style="font-family: 'Kelblok', sans-serif; font-size: 48px;">
+          The quick brown fox jumps over the lazy dog
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specimen: Kelblok -->
+  <section>
+    <div class="section-label">Kelblok &mdash; Specimen</div>
+    <div class="font-card" id="specimen-kelblok">
+      <div class="specimen-row">
+        <span class="specimen-size">72</span>
+        <span class="specimen-text" style="font-family:'Kelblok'; font-size:72px;">Hamburgevons</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">48</span>
+        <span class="specimen-text" style="font-family:'Kelblok'; font-size:48px;">Pack my box with five dozen</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">36</span>
+        <span class="specimen-text" style="font-family:'Kelblok'; font-size:36px;">Sphinx of black quartz, judge my vow</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">24</span>
+        <span class="specimen-text" style="font-family:'Kelblok'; font-size:24px;">How vexingly quick daft zebras jump! The five boxing wizards jump quickly.</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">16</span>
+        <span class="specimen-text" style="font-family:'Kelblok'; font-size:16px;">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%&amp;*()?,.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specimen: Kelblop -->
+  <section>
+    <div class="section-label">Kelblop &mdash; Specimen</div>
+    <div class="font-card" id="specimen-kelblop">
+      <div class="specimen-row">
+        <span class="specimen-size">72</span>
+        <span class="specimen-text" style="font-family:'Kelblop'; font-size:72px;">Hamburgevons</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">48</span>
+        <span class="specimen-text" style="font-family:'Kelblop'; font-size:48px;">Pack my box with five dozen</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">36</span>
+        <span class="specimen-text" style="font-family:'Kelblop'; font-size:36px;">Sphinx of black quartz, judge my vow</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">24</span>
+        <span class="specimen-text" style="font-family:'Kelblop'; font-size:24px;">How vexingly quick daft zebras jump! The five boxing wizards jump quickly.</span>
+      </div>
+      <div class="specimen-row">
+        <span class="specimen-size">16</span>
+        <span class="specimen-text" style="font-family:'Kelblop'; font-size:16px;">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%&amp;*()?,.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Glyphs -->
+  <section>
+    <div class="section-label">Glyphs</div>
+    <div class="tabs">
+      <button class="tab active" data-font="Kelblok">Kelblok</button>
+      <button class="tab" data-font="Kelblop">Kelblop</button>
+    </div>
+    <div class="glyph-grid" id="glyph-grid"></div>
+  </section>
+
+  <!-- License -->
+  <section>
+    <div class="section-label">License</div>
+    <div class="license-box">
+      <h3>SIL Open Font License 1.1</h3>
+      <p>
+        Kelblok and Kelblop are free and open source. You can use them in any project,
+        commercial or personal, without attribution. You can bundle them with software,
+        embed them in documents, and modify them freely.
+      </p>
+      <p>
+        <a href="https://openfontlicense.org" target="_blank" rel="noopener">Read the full license</a>
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 <a href="https://github.com/kellydornhaus">Kelly Dornhaus Games LLC</a>. Fonts licensed under <a href="https://openfontlicense.org">SIL OFL 1.1</a>.</p>
+  </div>
+</footer>
+
+<script>
+// Type tester
+const testerFont = document.getElementById('tester-font');
+const testerSize = document.getElementById('tester-size');
+const testerSizeDisplay = document.getElementById('tester-size-display');
+const testerText = document.getElementById('tester-text');
+
+testerFont.addEventListener('change', () => {
+  testerText.style.fontFamily = `'${testerFont.value}', sans-serif`;
+});
+testerSize.addEventListener('input', () => {
+  testerText.style.fontSize = testerSize.value + 'px';
+  testerSizeDisplay.textContent = testerSize.value + 'px';
+});
+
+// Glyph grid
+const glyphRanges = [
+  [0x0020, 0x007E],  // Basic Latin
+  [0x00A0, 0x00FF],  // Latin-1 Supplement
+  [0x0100, 0x017E],  // Latin Extended-A
+  [0x0218, 0x021B],  // Latin Extended-B subset
+];
+
+let currentGlyphFont = 'Kelblok';
+
+function renderGlyphs() {
+  const grid = document.getElementById('glyph-grid');
+  grid.innerHTML = '';
+  for (const [start, end] of glyphRanges) {
+    for (let cp = start; cp <= end; cp++) {
+      const ch = String.fromCodePoint(cp);
+      const cell = document.createElement('div');
+      cell.className = 'glyph-cell';
+      cell.innerHTML = `<span class="glyph-char" style="font-family:'${currentGlyphFont}',sans-serif">${cp === 0x20 ? '&blank;' : ch.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')}</span><span class="glyph-code">${cp.toString(16).toUpperCase().padStart(4, '0')}</span>`;
+      cell.title = `U+${cp.toString(16).toUpperCase().padStart(4, '0')}`;
+      grid.appendChild(cell);
+    }
+  }
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentGlyphFont = tab.dataset.font;
+    renderGlyphs();
+  });
+});
+
+renderGlyphs();
+</script>
+</body>
+</html>

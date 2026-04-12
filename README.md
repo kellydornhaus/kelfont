@@ -1,6 +1,6 @@
 # Kelfont
 
-Font families by Keldor LLC, licensed under the [SIL Open Font License v1.1](ofl/kelblok/OFL.txt).
+Font families by Kelly Dornhaus Games LLC, licensed under the [SIL Open Font License v1.1](ofl/kelblok/OFL.txt).
 
 ## Families
 
