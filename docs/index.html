@@ -82,19 +82,49 @@ header h1 span { color: var(--text-secondary); font-weight: 400; }
   padding: 80px 0 64px;
   text-align: center;
 }
-.hero-title {
-  font-family: 'Kelblok', sans-serif;
-  font-size: clamp(48px, 8vw, 96px);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
+/* Sticky font switcher — the big title is the picker */
+.font-switcher {
+  position: sticky;
+  top: 64px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  z-index: 9;
 }
-.hero-subtitle {
-  font-family: 'Kelblop', sans-serif;
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.2;
+.font-switcher .container {
+  display: flex;
+  justify-content: center;
+}
+.font-toggle {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.font-toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.02em;
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+  white-space: nowrap;
+}
+.font-toggle-btn:hover:not(.active) { color: var(--text); }
+.font-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.font-toggle-btn.active {
+  background: var(--accent);
+  color: #fff;
+  cursor: default;
 }
 .hero-desc {
   font-size: 16px;
@@ -268,38 +298,6 @@ section + section { border-top: 1px solid var(--border); }
   font-family: monospace;
 }
 
-/* Tabs */
-.tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 24px;
-  border-bottom: 2px solid var(--border);
-}
-.tab {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  transition: color 0.15s;
-}
-.tab:hover { color: var(--text); }
-.tab.active {
-  color: var(--accent);
-}
-.tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-}
-
 /* License */
 .license-box {
   background: var(--surface);
@@ -320,6 +318,15 @@ footer {
   color: var(--text-secondary);
 }
 footer a { color: var(--text-secondary); }
+
+@media (max-width: 600px) {
+  header h1 span { display: none; }
+  .header-links { gap: 12px; }
+  .header-links a { font-size: 13px; }
+}
+@media (max-width: 420px) {
+  .header-links a[href$=".zip"] { display: none; }
+}
 </style>
 </head>
 <body>
@@ -334,15 +341,22 @@ footer a { color: var(--text-secondary); }
   </div>
 </header>
 
+<div class="font-switcher">
+  <div class="container">
+    <div class="font-toggle" role="radiogroup" aria-label="Font">
+      <button type="button" class="font-toggle-btn active" data-font="Kelblok" aria-pressed="true" style="font-family:'Kelblok',sans-serif">Kelblok</button>
+      <button type="button" class="font-toggle-btn" data-font="Kelblop" aria-pressed="false" style="font-family:'Kelblop',sans-serif">Kelblop</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
 
   <!-- Hero -->
   <div class="hero">
-    <div class="hero-title">Kelblok</div>
-    <div class="hero-subtitle">Kelblop</div>
     <p class="hero-desc">
-      Two bold, geometric display typefaces. Blocky and rounded companions
-      for headlines, game interfaces, and playful branding.
+      Two fun, chunky typefaces. One blocky, one bloppy.
+      For games or playful branding.
     </p>
     <div class="btn-group">
       <a class="btn" href="https://github.com/kellydornhaus/kelfont/archive/refs/heads/main.zip">Download fonts</a>
@@ -355,11 +369,6 @@ footer a { color: var(--text-secondary); }
     <div class="section-label">Type Tester</div>
     <div class="type-tester">
       <div class="type-tester-controls">
-        <label>Font</label>
-        <select id="tester-font">
-          <option value="Kelblok">Kelblok</option>
-          <option value="Kelblop">Kelblop</option>
-        </select>
         <label>Size</label>
         <input type="range" id="tester-size" min="12" max="120" value="48">
         <span class="size-display" id="tester-size-display">48px</span>
@@ -373,7 +382,7 @@ footer a { color: var(--text-secondary); }
   </section>
 
   <!-- Specimen: Kelblok -->
-  <section>
+  <section data-specimen="Kelblok">
     <div class="section-label">Kelblok &mdash; Specimen</div>
     <div class="font-card" id="specimen-kelblok">
       <div class="specimen-row">
@@ -400,7 +409,7 @@ footer a { color: var(--text-secondary); }
   </section>
 
   <!-- Specimen: Kelblop -->
-  <section>
+  <section data-specimen="Kelblop" hidden>
     <div class="section-label">Kelblop &mdash; Specimen</div>
     <div class="font-card" id="specimen-kelblop">
       <div class="specimen-row">
@@ -428,11 +437,7 @@ footer a { color: var(--text-secondary); }
 
   <!-- Glyphs -->
   <section>
-    <div class="section-label">Glyphs</div>
-    <div class="tabs">
-      <button class="tab active" data-font="Kelblok">Kelblok</button>
-      <button class="tab" data-font="Kelblop">Kelblop</button>
-    </div>
+    <div class="section-label"><span id="glyph-label-font">Kelblok</span> &mdash; Glyphs</div>
     <div class="glyph-grid" id="glyph-grid"></div>
   </section>
 
@@ -462,17 +467,35 @@ footer a { color: var(--text-secondary); }
 
 <script>
 // Type tester
-const testerFont = document.getElementById('tester-font');
 const testerSize = document.getElementById('tester-size');
 const testerSizeDisplay = document.getElementById('tester-size-display');
 const testerText = document.getElementById('tester-text');
 
-testerFont.addEventListener('change', () => {
-  testerText.style.fontFamily = `'${testerFont.value}', sans-serif`;
-});
 testerSize.addEventListener('input', () => {
   testerText.style.fontSize = testerSize.value + 'px';
   testerSizeDisplay.textContent = testerSize.value + 'px';
+});
+
+// Sticky font toggle drives the whole page: tester, specimen, glyphs
+const toggleButtons = document.querySelectorAll('.font-toggle-btn');
+const specimenSections = document.querySelectorAll('[data-specimen]');
+const glyphLabelFont = document.getElementById('glyph-label-font');
+
+function selectFont(font) {
+  toggleButtons.forEach(b => {
+    const isActive = b.dataset.font === font;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+  testerText.style.fontFamily = `'${font}', sans-serif`;
+  specimenSections.forEach(s => { s.hidden = s.dataset.specimen !== font; });
+  glyphLabelFont.textContent = font;
+  currentGlyphFont = font;
+  renderGlyphs();
+}
+
+toggleButtons.forEach(btn => {
+  btn.addEventListener('click', () => selectFont(btn.dataset.font));
 });
 
 // Glyph grid — only show codepoints that actually exist in each font
@@ -498,15 +521,6 @@ function renderGlyphs() {
     grid.appendChild(cell);
   }
 }
-
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentGlyphFont = tab.dataset.font;
-    renderGlyphs();
-  });
-});
 
 renderGlyphs();
 </script>
